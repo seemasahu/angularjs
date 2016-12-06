@@ -1,1 +1,88 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html ng-app="mortgageCalculator">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Mortgage Calculator using angular js</title>
+        <meta name="description" content="Short description about application">
+        <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    </head>
+    <body>
+		<div class="container" ng-controller="homeController">
+		  <div class="masthead">
+			<h3 class="text-muted">{{appName}}</h3>
+		  </div>
+		  <div class="row">
+			<div class="col-lg-4">
+			  <h2>{{calculator.title}}</h2>
+			  <form>
+				  <fieldset class="form-group">
+					<label for="principalAmount">{{calculator.principalAmount.title}}</label>
+					<input type="number" step=".01" ng-model="calculator.principalAmount.value" required="" class="form-control" id="principalAmount" placeholder="{{calculator.principalAmount.label}}">
+				  </fieldset>
+				  <fieldset class="form-group">
+					<label for="interstRate">{{calculator.interestRate.title}}</label>
+					<input type="number" step=".01" ng-model="calculator.interestRate.value" required="" class="form-control" id="interstRate" placeholder="{{calculator.interestRate.label}}">
+				  </fieldset>
+				  <fieldset class="form-group">
+					<label for="monthlyPayment">{{calculator.monthlyPayment.title}}</label>
+					<input type="number" step=".01" ng-model="calculator.monthlyPayment.value" required="" class="form-control" id="monthlyPayment" placeholder="{{calculator.monthlyPayment.label}}">
+				  </fieldset>
+				  <p>
+					<button type="submit" class="btn btn-primary" ng-click="calculator.actionButtons.clear.all()">{{calculator.actionButtons.clear.title}}</button>
+					<button type="submit" class="btn btn-primary" ng-click="calculator.actionButtons.submit.action()">{{calculator.actionButtons.submit.title}}</button>
+				  </p>
+			  </form>
+			</div>
+			<div class="col-lg-4">
+			  <h2>{{result.title}}</h2>
+			  <fieldset class="form-group">
+				<label for="duration">{{result.duration.title}}</label>
+				<div class="col">
+					<div class="col-lg-6 clearSpace">
+						<label for="durationYears">{{result.duration.years.title}}</label>
+						<input type="text" ng-model="result.duration.years.value" class="form-control" id="durationYears" readonly>
+					</div>
+					<div class="col-lg-1">
+					</div>
+					<div class="col-lg-5 clearSpace">
+						<label for="durationMonths">{{result.duration.months.title}}</label>
+						<input type="text" ng-model="result.duration.months.value" class="form-control" id="durationMonths" readonly>
+					</div>
+				</div>
+			  </fieldset>
+			  <fieldset class="form-group">
+				<label for="totalAmount">{{result.totalAmount.title}}</label>
+				<input type="text" ng-model="result.totalAmount.value" class="form-control" id="totalAmount" readonly>
+			  </fieldset>
+			  <p ng-if="result.lastMonthPayment.value != ''">{{result.lastMonthPayment.text}}{{result.lastMonthPayment.value}}</p>
+		   </div>
+			<div class="col-lg-4">
+			  <h2>{{logs.title}}</h2>
+			  <div ng-if="logs.prevCalcLogs.length > 0">
+				<div ng-repeat="log in logs.prevCalcLogs" class="log-item">
+					<fieldset class="form-group">
+						<button class="btn  btn-mini btn-danger right-align" type="button" ng-click="logs.actions.deleteLog($index)">Delete</button>
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="logPricipalAmount">{{calculator.principalAmount.title}}</label>
+						<input type="text" class="form-control" value="{{log.principalAmount}}" id="logPricipalAmount" ng-click="logs.actions.updateCalculatorField('principalAmount',log.principalAmount)" readonly>
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="logInterstRate">{{calculator.interestRate.title}}</label>
+						<input type="text" class="form-control" value="{{log.interestRate}}" id="logInterestRate" ng-click="logs.actions.updateCalculatorField('interestRate',log.interestRate)" readonly>
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="logMonthlyPayment">{{calculator.monthlyPayment.title}}</label>
+						<input type="text" class="form-control" value="{{log.monthlyPayment}}" id="logMonthlyPayment" ng-click="logs.actions.updateCalculatorField('monthlyPayment',log.monthlyPayment)" readonly>
+					</fieldset>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+        <script type="text/javascript" src="scripts/angular.min.js"></script>
+        <script type="text/javascript" src="scripts/app.js"></script>
+    </body>
+</html>
